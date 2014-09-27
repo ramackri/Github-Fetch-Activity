@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gethub Fetch Activity</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/foundation.css">
+</head>
+<body ng-app="githubApp">
+
+<div class="row" ng-controller="ActivityController">
+<br>
+    Github User Name <input type="text" placeholder="Enter github username" ng-model="username">
+    <button ng-click="activityFeed(username)" value="Gethub Fetch Activity Feed">Gethub Fetch Activity</button>
+    <input type="text" ng-model="searchText">
+    <table ng-if="results">
+        <th>
+            <tr>
+                <td>No.</td>
+                <td>Action</td>
+                <td>Repository</td>
+                <td>Created At</td>
+            </tr>
+
+        </th>
+        <tr ng-repeat="result in results | orderBy:'type'| filter:searchText">
+            <td>{{$index + 1}}</td>
+            <td>{{result.type}}</td>
+            <td><a urlclick repositoryurl="result.repo.name" ng-href="{{result.repo.name | githubUrl}}" target="_blank">{{result.repo.name}}</a></td>
+            <td>{{result.created_at | date:'yyyyMMdd'|moment}}</td>
+        </tr>
+    </table>
+</div>
+
+<script src="js/angular.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
